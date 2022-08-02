@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/site.css') }}" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-
+       
     </style>
     <title>Chat</title>
 </head>
@@ -18,10 +18,18 @@
 <body>
     <div class="cntt" id="vapp">
         <div>
-            <div v-if="selectedUser" class="topname">
-                <span>@{{selectedUser.Name}}</span>
+            <div class="topname">
+                <div  ><span v-if="selectedUser">@{{selectedUser.Name}}</span></div>
                 <button v-if="callEnabled" @click="onCallButton()"><i class="mi">call</i></button>
                 <button v-if="callEnabled && callStarted" @click="onEndCallButton()"><i class="mi">call_end</i></button>
+                <div class="dropdown">
+                    <button @click="onNotifClick()" class="dropbtn"><i class="mi">notifications</i></button>
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
             </div>
             <div v-if="callEnabled">
                 <video id="received_video" autoplay height="100" width="300"></video>

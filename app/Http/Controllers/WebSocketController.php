@@ -29,9 +29,14 @@ class WebSocketController extends Controller implements MessageComponentInterfac
     public function onMessage(ConnectionInterface $from, $msg)
     {
         $json = json_decode($msg, true);
+
         switch ($json['type']) {
             case "chat":
                 $this->sendChat($json);
+                break;
+            case "notification":
+                echo $msg;
+                $this->sendNotification($json);
                 break;
             case "chatFile":
                 $chat = DB::table("chats")->where("id", $json["Id"])->first();
@@ -63,6 +68,18 @@ class WebSocketController extends Controller implements MessageComponentInterfac
         foreach ($this->clients as $client) {
             if ($client->resourceId == $cid) {
                 $client->send(json_encode(['type' => 'chat', 'fromUser' => $fromUser->Name, 'chat' => $chatInfo]));
+            }
+        }
+    }
+    private function sendNotification($json)
+    {
+        $cid = $json['toClientId'];
+        $id = DB::selectOne('select max(Id)+1 id from Notification')->id;
+        $notifInfo = ['id' => $id, 'ToUser' => $json['toUserId'], 'Message' => $json['message'], 'Time' => Carbon::now()];
+        DB::table("Notification")->insert($notifInfo);
+        foreach ($this->clients as $client) {
+            if ($client->resourceId == $cid) {
+                $client->send(json_encode(['type' => 'notification', 'data' => $notifInfo]));
             }
         }
     }

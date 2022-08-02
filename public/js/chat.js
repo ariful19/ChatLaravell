@@ -26,6 +26,10 @@ function initWebSocket() {
                     window.app.addChat(d.chat.Id, d.chat.FromUser, d.chat.ToUser, d.chat.Message, d.chat.Time, d.chat.ToUser == u, d.chat.FileName);
                     window.app.chatScrollToBottom(0);
                     break;
+                case "notification":
+                    //notification received
+                    console.log(d);
+                    break;
                 default:
                     break;
             }
@@ -162,6 +166,9 @@ window['app'] = createApp({
         getMyConnectionId() {
             var id = sessionStorage.getItem('id');
             return this.users.find(o => o.id == id).connectinId;
+        },
+        onNotifClick() {
+
         }
     }
-}).mount('#vapp')
+}).mount('#vapp');

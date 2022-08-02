@@ -14,6 +14,11 @@ class ChatController extends Controller
         return view('chat');
     }
 
+    public function notify()
+    {
+        return view('notify');
+    }
+
     public function UpdateUser()
     {
         $bdy = request()->all();

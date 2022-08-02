@@ -23,6 +23,7 @@ Route::get('/fine-test', [FineTestController::class, 'index']);
 Route::post('/fine-test/fileUpload', [FineTestController::class, 'fileUpload']);
 Route::get('/fine-test/dbTest', [FineTestController::class, 'dbTest']);
 Route::get('/chat', [ChatController::class, 'index']);
+Route::get('/Chat/notify', [ChatController::class, 'notify']);
 Route::post('/Chat/UpdateUser', [ChatController::class, 'UpdateUser']);
 Route::get('/Chat/GetUsers', [ChatController::class, 'GetUsers']);
 Route::get('/Chat/GetChats', [ChatController::class, 'GetChats']);
