@@ -60,7 +60,7 @@ class WebSocketController extends Controller implements MessageComponentInterfac
     private function sendChat($json)
     {
         $cid = $json['toClientId'];
-        $fileName = $json['fileName'] != null ? $json['fileName'] : '';
+        $fileName = array_key_exists('fileName', $json) ? ($json['fileName'] != null ? $json['fileName'] : '') : '';
         $fromUser = DB::table('Users')->where('id', $json['from'])->first();
         $id = DB::selectOne('select max(Id)+1 id from Chats')->id;
         DB::table("chats")->insert(['Id' => $id, 'FromUser' => $json['from'], 'ToUser' => $json['to'], 'Message' => $json['message'], 'Time' => Carbon::now(), 'FileName' => $fileName]);
