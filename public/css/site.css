@@ -171,6 +171,7 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
 .dropbtn {
     color: #0261d7;
     font-size: 16px;
@@ -192,7 +193,7 @@ body {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    margin: 0 -1em 0 0;
+    margin-left: -4em;
 }
 
 /* Links inside the dropdown */
@@ -216,4 +217,12 @@ body {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     /* background-color: #3e8e41; */
+}
+
+.newnotif {
+    background: white;
+}
+
+.notifold {
+    background: #f5f5f5;
 }

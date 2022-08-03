@@ -10,24 +10,25 @@
     <link rel="stylesheet" href="{{ asset('css/site.css') }}" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-       
+
     </style>
     <title>Chat</title>
 </head>
 
 <body>
+    <audio src="/js/beep.wav" id="beepp" style="visibility: hidden;"></audio>
     <div class="cntt" id="vapp">
         <div>
             <div class="topname">
                 <div  ><span v-if="selectedUser">@{{selectedUser.Name}}</span></div>
                 <button v-if="callEnabled" @click="onCallButton()"><i class="mi">call</i></button>
                 <button v-if="callEnabled && callStarted" @click="onEndCallButton()"><i class="mi">call_end</i></button>
-                <div class="dropdown">
+                <div class="dropdown" v-if="notifs">
+                    <span v-if="newNotif" class="mi" style="color: red; font-size: 0.8em; transform: translate(31px, -9px);">fiber_manual_record</span>
                     <button @click="onNotifClick()" class="dropbtn"><i class="mi">notifications</i></button>
+
                     <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
+                        <a href="#" v-for="n in notifs" :class="[n.new?'newnotif':'notifold']" @click="n.new=false">@{{n.message}}</a>
                     </div>
                 </div>
             </div>

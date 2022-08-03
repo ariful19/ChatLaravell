@@ -28,6 +28,11 @@ function initWebSocket() {
                     break;
                 case "notification":
                     //notification received
+                    var audio = document.getElementById("beepp");
+                    audio.play();
+                    app.newNotif = true;
+                    if (!app.notifs) app.notifs = [];
+                    app.notifs.push({ message: d.data.Message, time: d.data.Time, new: true });
                     console.log(d);
                     break;
                 default:
@@ -55,7 +60,9 @@ window['app'] = createApp({
             chats: null,
             selectedUser: null,
             callStarted: false,
-            callEnabled: false
+            callEnabled: false,
+            newNotif: false,
+            notifs: null,
         }
     },
     async mounted() {
@@ -168,7 +175,8 @@ window['app'] = createApp({
             return this.users.find(o => o.id == id).connectinId;
         },
         onNotifClick() {
-
+            this.newNotif = false;
+            //ws.send(JSON.stringify({ type: 'notifRead' }));
         }
     }
 }).mount('#vapp');
